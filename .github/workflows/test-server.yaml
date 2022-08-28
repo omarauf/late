@@ -1,0 +1,13 @@
+name: test-server
+
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd server && yarn install && yarn test:ci
