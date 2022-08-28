@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  client:
+    profiles:
+      - donotstart
+  server:
+    profiles:
+      - donotstart
+
+  mongo:
+    ports:
+      - '27017:27017'
+
+  redis:
+    ports:
+      - '6379:6379'

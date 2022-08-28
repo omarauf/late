@@ -1,0 +1,17 @@
+FROM node:alpine
+WORKDIR /app
+COPY package*.json ./
+COPY . .
+RUN yarn install
+RUN yarn build
+
+## this is stage two , where the app actually runs
+
+FROM node:alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN yarn install --production=true
+COPY --from=0 /app/dist ./dist
+EXPOSE 4000
+CMD yarn start

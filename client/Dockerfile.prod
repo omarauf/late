@@ -1,0 +1,38 @@
+# Name the node stage "builder"
+FROM node:alpine AS builder
+# Set working directory
+WORKDIR /app
+# Install app dependencies
+# // A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package.json ./
+# install node modules
+RUN yarn install
+# Copy all files from current directory to working dir in image
+COPY . .
+
+
+ARG VITE_ENV
+ARG VITE_RUN_BY
+ARG VITE_V
+
+ENV VITE_ENV=$VITE_ENV
+ENV VITE_RUN_BY=$VITE_RUN_BY
+ENV VITE_V=$VITE_V
+
+# build assets
+RUN yarn build
+
+
+
+# nginx state for serving content
+FROM nginx:alpine
+# Set working directory to nginx asset directory
+WORKDIR /usr/share/nginx/html
+# Remove default nginx static assets
+RUN rm -rf ./*
+# Copy static assets from builder stage
+COPY --from=builder /app/dist .
+
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+# Containers run nginx with global directives and daemon off
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

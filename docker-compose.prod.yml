@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+      args:
+        - VITE_ENV=production
+        - VITE_RUN_BY=docker
+        - VITE_V=2
+    ports:
+      - '8080:80'
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    environment:
+      - NODE_ENV=production
+      - NODE_V=2
