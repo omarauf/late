@@ -2,6 +2,7 @@
 
 // check environment variables
 // if (!process.env.JWT_KEY) throw new Error('JWT_KEY must be defined');
+if (process.env.NODE_ENV === "test") return;
 if (!process.env.MONGODB_USERNAME) throw new Error('MONGODB_USERNAME must be defined');
 if (!process.env.MONGODB_PASSWORD) throw new Error('MONGODB_PASSWORD must be defined');
 if (!process.env.MONGODB_URL) throw new Error('MONGODB_URL must be defined');
