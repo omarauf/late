@@ -2,15 +2,15 @@
 
 // check environment variables
 // if (!process.env.JWT_KEY) throw new Error('JWT_KEY must be defined');
-if (process.env.NODE_ENV === "test") return;
-if (!process.env.MONGODB_USERNAME) throw new Error('MONGODB_USERNAME must be defined');
-if (!process.env.MONGODB_PASSWORD) throw new Error('MONGODB_PASSWORD must be defined');
-if (!process.env.MONGODB_URL) throw new Error('MONGODB_URL must be defined');
-if (!process.env.MONGODB_PASSWORD) throw new Error('MONGODB_PASSWORD must be defined');
-if (!process.env.REDIS_URL) throw new Error('REDIS_URL must be defined');
-if (!process.env.NODE_RUN_BY) throw new Error('BY must be defined');
-if (!process.env.NODE_V) throw new Error('V must be defined');
-
+if (process.env.NODE_ENV !== "test") {
+	if (!process.env.MONGODB_USERNAME) throw new Error('MONGODB_USERNAME must be defined');
+	if (!process.env.MONGODB_PASSWORD) throw new Error('MONGODB_PASSWORD must be defined');
+	if (!process.env.MONGODB_URL) throw new Error('MONGODB_URL must be defined');
+	if (!process.env.MONGODB_PASSWORD) throw new Error('MONGODB_PASSWORD must be defined');
+	if (!process.env.REDIS_URL) throw new Error('REDIS_URL must be defined');
+	if (!process.env.NODE_RUN_BY) throw new Error('BY must be defined');
+	if (!process.env.NODE_V) throw new Error('V must be defined');
+}
 export const env = {
 	REDIS_URL: process.env.REDIS_URL,
 	NODE_ENV: process.env.NODE_ENV || 'development',
