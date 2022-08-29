@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Build image
-      - run: cd client && docker build -f Dockerfile.prod --build-arg VITE_V=10 -t omarauf/client .
+        run: cd client && docker build -f Dockerfile.prod --build-arg VITE_V=10 -t omarauf/client .
 
       - name: login
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: push
-      - run: docker push omarauf/client
+        run: docker push omarauf/client
