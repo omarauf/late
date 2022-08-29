@@ -39,6 +39,7 @@ try {
 		logger.info(
 			`node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode run by ${env.NODE_RUN_BY} v: ${env.NODE_V}`
 		);
+		
 		console.log(
 			`node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode run by ${env.NODE_RUN_BY} v: ${env.NODE_V}`
 		);

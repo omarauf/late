@@ -25,18 +25,18 @@ describe('Testing user component', () => {
 		// const signedUser = data.user;
 	});
 
-	afterAll(() => {
+	afterAll(async () => {
 		return factory.close();
 	});
 
 	describe('POST /users', () => {
-		it('responds with status 401', async () => {
+		it('responds with status 401', (done) => {
 			factory.app
 				.post('/api/v1/users')
 				.send()
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
-				.expect(401);
+				.expect(401, done);
 		});
 
 		it('responds with new user', (done) => {
