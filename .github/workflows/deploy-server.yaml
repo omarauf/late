@@ -1,4 +1,4 @@
-name: server-client
+name: deploy-server
 
 on:
   push:
