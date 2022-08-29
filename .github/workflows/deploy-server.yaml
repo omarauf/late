@@ -2,27 +2,33 @@ name: deploy-server
 
 on:
   push:
-    branches: 
+    branches:
       - main
     paths:
       - 'server/**'
-      
-      
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Cloning repo
         uses: actions/checkout@v2
 
-      - name: Build image
+      - name: Build docker image
         run: cd server && docker build -f Dockerfile.prod -t omarauf/late-server .
 
-      - name: login
+      - name: Login to docker hub
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: push
+      - name: Push to docker hub
         run: docker push omarauf/late-server
+
+      - name: Push to dokku
+        uses: dokku/github-action@master
+        with:
+          git_remote_url: 'ssh://dokku@51.38.112.108.:22/appname'
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          deploy_docker_image: ${{ github.repository }}:${{ github.sha }}
