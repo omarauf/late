@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build image
-        run: cd server && docker build -f Dockerfile.prod -t omarauf/server .
+        run: cd server && docker build -f Dockerfile.prod -t omarauf/late-server .
 
       - name: login
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
