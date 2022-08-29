@@ -11,6 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Build and push Docker images
       - uses: actions/checkout@v2
       - run: cd client && docker build -f Dockerfile.prod --build-arg VITE_V=10 -t omarauf/client .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
