@@ -25,4 +25,4 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: push
-        run: docker push omarauf/client
+        run: docker push omarauf/late-client
