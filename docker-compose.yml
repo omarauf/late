@@ -27,9 +27,6 @@ services:
     image: mongo
     env_file:
       - .env
-    volumes:
-      - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
-      - ./db/mongo-volume:/data/db
     logging:
       driver: none
 

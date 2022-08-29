@@ -7,3 +7,8 @@ services:
   server:
     volumes:
       - ./server:/app
+
+  mongo:
+    volumes:
+      - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+      - ./db/mongo-volume:/data/db

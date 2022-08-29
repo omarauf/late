@@ -23,7 +23,7 @@ export function registerMiddleware(router: Router): void {
 	if (env.NODE_ENV === 'development') {
 		router.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 	} else {
-		router.use(cors({ origin: ['http://localhost:8080'], credentials: true }));
+		router.use(cors({ origin: ['http://51.38.112.108'], credentials: true }));
 	}
 
 	router.use(json());

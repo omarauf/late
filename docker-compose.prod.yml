@@ -5,7 +5,7 @@ services:
       context: ./client
       dockerfile: Dockerfile.prod
       args:
-        - VITE_ENV=production
+        - VITE_API_URL=http://51.38.112.108/api/v1
         - VITE_RUN_BY=docker
         - VITE_V=2
     ports:
