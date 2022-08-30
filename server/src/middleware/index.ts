@@ -24,7 +24,7 @@ export function registerMiddleware(router: Router): void {
 		router.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 	} else {
 		router.use(
-			cors({ origin: ['https://late-clinet.lateproject.net/', 'https://clinet.lateproject.net/'], credentials: true })
+			cors({ origin: ['http://late-clinet.lateproject.net/', 'http://clinet.lateproject.net/'], credentials: true })
 		);
 	}
 
