@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build image
-        run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=http://51.38.112.108/api/v1 -t omarauf/late-client .
+        run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=http://api.lateproject.net/api/v1 -t omarauf/late-client .
 
       - name: login
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
