@@ -23,7 +23,7 @@ try {
 	logger.info('Initializing mongoose connection...');
 
 	// connect(`mongodb://${env.MONGODB_USERNAME}:${env.MONGODB_PASSWORD}@${env.MONGODB_URL}:${env.MONGODB_PORT}`);
-	connect(`${MONGO_URL}`);
+	connect(`${env.MONGO_URL}`);
 
 	// Connect redis
 	logger.info('Initializing redis connection...');
