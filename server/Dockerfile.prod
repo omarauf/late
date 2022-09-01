@@ -14,4 +14,6 @@ COPY package*.json ./
 RUN yarn install --production=true
 COPY --from=0 /app/dist ./dist
 EXPOSE 4000
+ENV NODE_VERSION $(yarn version)
+ENV NODE_ENV production
 CMD yarn start
