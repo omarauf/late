@@ -38,7 +38,7 @@ try {
 
 	server.on('listening', () => {
 		logger.info(
-			`node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode run by ${env.NODE_RUN_BY} v: ${env.NODE_VERSION} fucker it`
+			`node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode run by ${env.NODE_RUN_BY} v: ${env.NODE_VERSION} NEW Fuck`
 		);
 	});
 

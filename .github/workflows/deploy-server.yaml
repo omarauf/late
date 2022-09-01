@@ -26,14 +26,14 @@ jobs:
       - name: Push to docker hub
         run: docker push omarauf/late-server
 
-      - name: Deploy to <your domain>
-        uses: appleboy/ssh-action@master
-        with:
-          username: ${{ secrets.SSH_USERNAME }}
-          host: ${{ secrets.DOMAIN }}
-          port: ${{ secrets.SSH_PORT }}
-          key:  ${{ secrets.SSH_PRIVATE_KEY }}
-          script: 'sudo docker pull omarauf/late-server'
+      # - name: Deploy to <your domain>
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     host: ${{ secrets.DOMAIN }}
+      #     port: ${{ secrets.SSH_PORT }}
+      #     key:  ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: 'sudo docker pull omarauf/late-server'
 
       - name: Push to dokku
         uses: dokku/github-action@master
