@@ -25,7 +25,7 @@ export function registerMiddleware(router: Router): void {
 		router.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 	} else {
 		console.log('Production');
-		router.use(cors({ origin: 'http://client.lateproject.net', credentials: true }));
+		router.use(cors({ origin: 'https://client.lateproject.net', credentials: true }));
 	}
 
 	router.use(json());
