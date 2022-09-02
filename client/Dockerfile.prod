@@ -4,7 +4,7 @@ FROM node:alpine AS builder
 WORKDIR /app
 # Install app dependencies
 # // A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package.json ./
+COPY client/package.json ./
 # install node modules
 RUN yarn install
 # Copy all files from current directory to working dir in image

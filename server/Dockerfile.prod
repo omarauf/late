@@ -1,6 +1,6 @@
 FROM node:alpine
 WORKDIR /app
-COPY client/package*.json ./
+COPY package*.json ./
 COPY . .
 RUN yarn install
 RUN yarn build
@@ -10,7 +10,7 @@ RUN yarn build
 FROM node:alpine
 
 WORKDIR /app
-COPY client/package*.json ./
+COPY package*.json ./
 RUN yarn install --production=true
 COPY --from=0 /app/dist ./dist
 EXPOSE 4000
