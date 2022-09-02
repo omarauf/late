@@ -17,9 +17,6 @@ jobs:
       # - name: Build image
       #   run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=https://api.lateproject.net/api/v1 -t omarauf/late-client .
 
-      - name: Build image
-        run: cd client
-
       # - name: login
       #   run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       #   env:
