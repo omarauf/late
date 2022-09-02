@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       # - name: Build image
       #   run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=https://api.lateproject.net/api/v1 -t omarauf/late-client .
 
@@ -34,4 +34,4 @@ jobs:
           git_remote_url: 'ssh://dokku@${{ secrets.SSH_URL }}/late-client'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           # deploy_docker_image: omarauf/late-client
-          git_push_flags: '--force'
+          # git_push_flags: '--force'
