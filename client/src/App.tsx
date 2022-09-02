@@ -17,7 +17,7 @@ const App = () => {
   console.log(
     `App is running in ${import.meta.env.VITE_ENV} mode run by ${import.meta.env.VITE_RUN_BY} v: ${
       import.meta.env.VITE_V
-    } version`,
+    } version `,
   );
 
   useEffect(() => {
