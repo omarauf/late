@@ -14,22 +14,22 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: Build image
-        run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=https://api.lateproject.net/api/v1 -t omarauf/late-client .
+      # - name: Build image
+      #   run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=https://api.lateproject.net/api/v1 -t omarauf/late-client .
 
-      - name: login
-        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      # - name: login
+      #   run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      #   env:
+      #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: push
-        run: docker push omarauf/late-client
+      # - name: push
+      #   run: docker push omarauf/late-client
 
       - name: Push to dokku
         uses: dokku/github-action@master
         with:
           git_remote_url: 'ssh://dokku@${{ secrets.SSH_URL }}/late-client'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          deploy_docker_image: omarauf/late-client
+          # deploy_docker_image: omarauf/late-client
           git_push_flags: '--force'
