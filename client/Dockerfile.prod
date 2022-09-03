@@ -1,5 +1,7 @@
 # Name the node stage "builder"
 FROM node:alpine AS builder
+# Label the builder image
+LABEL stage=builder
 # Set working directory
 WORKDIR /app
 # Install app dependencies
