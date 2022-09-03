@@ -6,11 +6,11 @@ LABEL stage=builder
 WORKDIR /app
 # Install app dependencies
 # // A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY client/package.json ./
+COPY package.json ./
 # install node modules
 RUN yarn install
 # Copy all files from current directory to working dir in image
-COPY client/. .
+COPY . .
 
 
 ARG VITE_ENV
@@ -37,6 +37,6 @@ RUN rm -rf ./*
 # Copy static assets from builder stage
 COPY --from=builder /app/dist .
 
-COPY client/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
