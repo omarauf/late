@@ -77,7 +77,7 @@ export class TestFactory {
 			isAdmin: true
 		};
 
-		const response = await supertest(this._app).post('/api/v1/auth/register').send(user);
+		const response = await supertest(this._app).post('/v1/auth/register').send(user);
 
 		return response;
 	};
@@ -86,7 +86,7 @@ export class TestFactory {
 		const email = user?.email || 'test@test.com';
 		const password = user?.password || 'password';
 
-		const response = await supertest(this._app).post('/api/v1/auth/signin').send({
+		const response = await supertest(this._app).post('/v1/auth/signin').send({
 			email,
 			password
 		});
@@ -123,7 +123,7 @@ export class TestFactory {
 // 	const password = 'password';
 
 // 	const response = await request(Server)
-// 		.post('/api/v1/auth/signin')
+// 		.post('/v1/auth/signin')
 // 		.send({
 // 			email,
 // 			password

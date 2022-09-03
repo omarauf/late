@@ -1,4 +1,4 @@
-# expressjs-api-mongodb
+# Late-server
 
 This repository is a dummy Node.js REST-API built with [TypeScript](https://www.typescriptlang.org/) and [Express](https://expressjs.com/). You might want to use it as codebase for your own Node project.
 
