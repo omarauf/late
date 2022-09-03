@@ -25,16 +25,22 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: tag image
-        run: docker tag omarauf/late-client omarauf/late-client:${{ github.sha }}
-
       - name: push
-        run: docker push omarauf/late-client:${{ github.sha }}
+        run: docker push omarauf/late-client
+
+      # - name: Deploy to <your domain>
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     host: ${{ secrets.DOMAIN }}
+      #     port: ${{ secrets.SSH_PORT }}
+      #     key:  ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: 'sudo docker pull omarauf/late-server'
 
       - name: Push to dokku
         uses: dokku/github-action@master
         with:
           git_remote_url: 'ssh://dokku@${{ secrets.SSH_URL }}/late-client'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          deploy_docker_image: omarauf/late-client:${{ github.sha }}
+          deploy_docker_image: omarauf/late-client
           git_push_flags: '--force'
