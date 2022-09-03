@@ -17,7 +17,11 @@ jobs:
           fetch-depth: 0
 
       - name: Building the Image
-        run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=https://api.lateproject.net/v1 -t omarauf/late-client .
+        run: cd client &&
+          docker build -f Dockerfile.prod \
+          --build-arg VITE_API_URL=https://api.lateproject.net/v1 \
+          --build-arg VITE_RUN_BY=dokku \
+          -t omarauf/late-client .
 
       - name: Login to Docker
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
