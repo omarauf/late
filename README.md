@@ -82,7 +82,7 @@ sudo dokku plugin:install https://github.com/dokku/dokku-redis.git redis
 
 # Install Let's Encrypt plugin and set the email
 sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
-dokku config:set --global DOKKU_LETSENCRYPT_EMAIL=omar.auf.110@gmail.com
+dokku config:set --global DOKKU_LETSENCRYPT_EMAIL=TYPE_EMAIL
 
 # Create mongo service named mongodb
 dokku mongo:create mongodb
