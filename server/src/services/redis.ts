@@ -11,7 +11,7 @@ export class RedisService {
 	 */
 	static connect(mockClient?: RedisClient) {
 		if (mockClient) this.client = mockClient;
-		else this.client = createClient(`${env.REDIS_URL}`);
+		else this.client = createClient(env.REDIS_URL);
 	}
 
 	/**

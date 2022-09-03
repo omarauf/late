@@ -11,28 +11,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Cloning Repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Build image
-        run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=https://api.lateproject.net/api/v1 -t omarauf/late-client .
+      - name: Building the Image
+        run: cd client && docker build -f Dockerfile.prod --build-arg VITE_API_URL=https://api.lateproject.net/v1 -t omarauf/late-client .
 
-      - name: login
+      - name: Login to Docker
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: push
+      - name: Push Image to Docker Hub
         run: docker push omarauf/late-client
 
-      - name: Deploy to <your domain>
+      - name: Deploy the App to Dokku
         uses: appleboy/ssh-action@master
         with:
           username: ${{ secrets.SSH_USERNAME }}
           host: ${{ secrets.DOMAIN }}
           port: ${{ secrets.SSH_PORT }}
-          key:  ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: 'sudo docker pull omarauf/late-client && dokku ps:rebuild late-client'

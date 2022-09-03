@@ -15,9 +15,7 @@ const App = () => {
   const [loading, setLoading] = React.useState(true);
 
   console.log(
-    `App is running in ${import.meta.env.VITE_ENV} mode run by ${import.meta.env.VITE_RUN_BY} v: ${
-      import.meta.env.VITE_V
-    } version docker hub verison 11`,
+    `app is running in ${import.meta.env.MODE} run by ${import.meta.env.VITE_RUN_BY} v: ${APP_VERSION}`,
   );
 
   useEffect(() => {

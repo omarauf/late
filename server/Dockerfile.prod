@@ -1,18 +1,34 @@
-FROM node:alpine
+# Name the node stage "builder"
+FROM node:alpine AS builder
+# Label the builder image
+LABEL stage=builder
+# Set working directory
 WORKDIR /app
-COPY package*.json ./
-COPY . .
+# Copy app dependencies
+COPY package.json ./
+COPY yarn.lock ./
+# Install app dependencies 
 RUN yarn install
+# Copy all files from current directory to working dir in image
+COPY . .
+# build assets
 RUN yarn build
 
-## this is stage two , where the app actually runs
 
+# Stage Two
 FROM node:alpine
-
+# Set working directory
 WORKDIR /app
-COPY package*.json ./
+# Copy app dependencies
+COPY package.json ./
+COPY yarn.lock ./
+# Install app dependencies production only
 RUN yarn install --production=true
+# Copy dist folder from builder
 COPY --from=0 /app/dist ./dist
+# Expose port 4000
 EXPOSE 4000
+# Set production 
 ENV NODE_ENV production
+# Start app
 CMD yarn start

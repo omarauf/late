@@ -12,6 +12,7 @@ import { TokenService } from './token';
 import { ValidationError } from '../../errors/validation';
 import { UnauthorizedError } from '../../errors/unauthorized';
 import { IUserDoc } from '../../components/user/interface';
+import { env } from '../../config/globals';
 
 export type PassportStrategy = 'jwt' | 'cookie';
 
@@ -36,14 +37,14 @@ export class AuthService {
 		audience: 'client',
 		issuer: 'server',
 		jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-		secretOrKey: 'my-super-secret-key'
+		secretOrKey: env.JWT_KEY
 	};
 
 	private readonly cookieStrategyOptions: CookieStrategyOptions = {
 		cookieName: 'jid',
 		signed: false,
 		passReqToCallback: true,
-		jwtSecretOrKey: 'my-super-secret-key'
+		jwtSecretOrKey: env.COOKIE_KEY
 	};
 
 	public constructor(defaultStrategy: PassportStrategy = 'jwt') {

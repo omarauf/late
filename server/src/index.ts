@@ -22,8 +22,7 @@ try {
 	// Connect db
 	logger.info('Initializing mongoose connection...');
 
-	// connect(`mongodb://${env.MONGODB_USERNAME}:${env.MONGODB_PASSWORD}@${env.MONGODB_URL}:${env.MONGODB_PORT}`);
-	connect(`${env.MONGO_URL}`);
+	connect(env.MONGO_URL);
 
 	// Connect redis
 	logger.info('Initializing redis connection...');
@@ -37,9 +36,7 @@ try {
 	server.listen(env.NODE_PORT);
 
 	server.on('listening', () => {
-		logger.info(
-			`node server is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} mode run by ${env.NODE_RUN_BY} v: ${env.NODE_VERSION} NEW Fuck`
-		);
+		logger.info(`app is listening on port ${env.NODE_PORT} in ${env.NODE_ENV} run by ${env.RUN_BY} v: ${env.VERSION}`);
 	});
 
 	server.on('close', () => {

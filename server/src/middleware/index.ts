@@ -21,10 +21,8 @@ export function registerMiddleware(router: Router): void {
 	router.use(helmet());
 
 	if (env.NODE_ENV === 'development') {
-		console.log('Development');
 		router.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-	} else {
-		console.log('Production');
+	} else if (env.NODE_ENV === 'production') {
 		router.use(cors({ origin: 'https://client.lateproject.net', credentials: true }));
 	}
 

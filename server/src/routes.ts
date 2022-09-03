@@ -10,7 +10,7 @@ import { registerErrorHandler, registerMiddleware } from './middleware';
  * @returns {void}
  */
 export function initRestRoutes(router: Router): void {
-	const prefix = '/api/v1';
+	const prefix = '/v1';
 
 	router.get(prefix, (req: Request, res: Response) => res.send('PING'));
 
