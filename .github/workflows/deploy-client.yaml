@@ -42,5 +42,5 @@ jobs:
         with:
           git_remote_url: 'ssh://dokku@${{ secrets.SSH_URL }}/late-client'
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          deploy_docker_image: omarauf/late-client
+          deploy_docker_image: omarauf/late-client:latest
           git_push_flags: '--force'
