@@ -30,7 +30,7 @@ export function useDebounce(value: string | number, delay = 200) {
 export const useDebouncedCallback = (func: (...rest: unknown[]) => void, wait: number) => {
   // Use a ref to store the timeout between renders
   // and prevent changes to it from causing re-renders
-  const timeout = useRef<number>();
+  const timeout = useRef<NodeJS.Timeout>();
 
   return useCallback(
     (...args: unknown[]) => {
