@@ -35,7 +35,7 @@ jobs:
           host: ${{ secrets.DOMAIN }}
           port: ${{ secrets.SSH_PORT }}
           key:  ${{ secrets.SSH_PRIVATE_KEY }}
-          script: 'sudo docker pull omarauf/late-server'
+          script: 'sudo docker pull omarauf/late-client'
 
       - name: Push to dokku
         uses: dokku/github-action@master
