@@ -32,7 +32,7 @@ describe('Testing user component', () => {
 	describe('POST /users', () => {
 		it('responds with status 401', (done) => {
 			factory.app
-				.post('/api/v1/users')
+				.post('/v1/users')
 				.send()
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
@@ -41,7 +41,7 @@ describe('Testing user component', () => {
 
 		it('responds with new user', (done) => {
 			factory.app
-				.post('/api/v1/users')
+				.post('/v1/users')
 				.send({
 					firstName: 'omar',
 					lastName: 'auf',
@@ -69,7 +69,7 @@ describe('Testing user component', () => {
 		it('responds with 403 not admin', async () => {
 			const nonAdminUserToken = await factory.signin(testUser);
 			factory.app
-				.post('/api/v1/users')
+				.post('/v1/users')
 				.send({
 					firstName: 'omar',
 					lastName: 'auf',
@@ -98,7 +98,7 @@ describe('Testing user component', () => {
 	describe('PUT /users/', () => {
 		it('responds with updated user', (done) => {
 			factory.app
-				.put(`/api/v1/users/${testUser.id}`)
+				.put(`/v1/users/${testUser.id}`)
 				.send({
 					...testUser,
 					firstName: 'ahmed',
@@ -133,7 +133,7 @@ describe('Testing user component', () => {
 	describe('GET /users', () => {
 		it('responds with user array', (done) => {
 			factory.app
-				.get('/api/v1/users')
+				.get('/v1/users')
 				.set('Authorization', `Bearer  ${accessToken}`)
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
@@ -165,7 +165,7 @@ describe('Testing user component', () => {
 	describe('GET /users/', () => {
 		it('responds with single user', (done) => {
 			factory.app
-				.get(`/api/v1/users/${testUser.id}`)
+				.get(`/v1/users/${testUser.id}`)
 				.set('Authorization', `Bearer  ${accessToken}`)
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
@@ -193,7 +193,7 @@ describe('Testing user component', () => {
 	describe('DELETE /users/1', () => {
 		it('responds with status 204', (done) => {
 			factory.app
-				.delete(`/api/v1/users/${testUser.id}`)
+				.delete(`/v1/users/${testUser.id}`)
 				.set('Authorization', `Bearer  ${accessToken}`)
 				.set('Accept', 'application/json')
 				.expect(204, done);
@@ -201,7 +201,7 @@ describe('Testing user component', () => {
 
 		it('responds with status 404', (done) => {
 			factory.app
-				.delete(`/api/v1/users/${testUser.id}`)
+				.delete(`/v1/users/${testUser.id}`)
 				.set('Authorization', `Bearer  ${accessToken}`)
 				.set('Accept', 'application/json')
 				.expect(404, done);

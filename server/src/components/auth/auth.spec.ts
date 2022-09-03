@@ -26,7 +26,7 @@ describe('Testing auth component', () => {
 	describe('POST /auth/register', () => {
 		it('responds with status 200', (done) => {
 			factory.app
-				.post('/api/v1/auth/register')
+				.post('/v1/auth/register')
 				.send({
 					email: testUser.email,
 					firstName: testUser.firstName,
@@ -43,7 +43,7 @@ describe('Testing auth component', () => {
 
 		it('register second user with same email', (done) => {
 			factory.app
-				.post('/api/v1/auth/register')
+				.post('/v1/auth/register')
 				.send({
 					email: testUser.email,
 					firstName: testUser.firstName,
@@ -62,7 +62,7 @@ describe('Testing auth component', () => {
 	describe('POST /auth/signin', () => {
 		it('responds with status 400', (done) => {
 			factory.app
-				.post('/api/v1/auth/signin')
+				.post('/v1/auth/signin')
 				.send()
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
@@ -71,7 +71,7 @@ describe('Testing auth component', () => {
 
 		it('responds with status 401', (done) => {
 			factory.app
-				.post('/api/v1/auth/signin')
+				.post('/v1/auth/signin')
 				.send({
 					email: testUser.email,
 					password: 'wrongPassword'
@@ -83,7 +83,7 @@ describe('Testing auth component', () => {
 
 		it('responds with signed in user and token', (done) => {
 			factory.app
-				.post('/api/v1/auth/signin')
+				.post('/v1/auth/signin')
 				.send({
 					email: testUser.email,
 					password: testUser.password
