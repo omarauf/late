@@ -35,12 +35,3 @@ jobs:
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           # deploy_docker_image: omarauf/late-client
           # git_push_flags: '--force'
-
-      - name: Delete docker stage builder image
-        uses: appleboy/ssh-action@master
-        with:
-          username: ${{ secrets.SSH_USERNAME }}
-          host: ${{ secrets.DOMAIN }}
-          port: ${{ secrets.SSH_PORT }}
-          key:  ${{ secrets.SSH_PRIVATE_KEY }}
-          script: 'sudo docker image prune --filter label=stage=builder'
