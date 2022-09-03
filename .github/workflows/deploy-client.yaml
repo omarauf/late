@@ -25,6 +25,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: tag image
+        run: docker tag omarauf/late-client omarauf/late-client:${{ github.sha }}
+
       - name: push
         run: docker push omarauf/late-client:${{ github.sha }}
 
