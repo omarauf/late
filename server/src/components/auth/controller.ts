@@ -120,7 +120,7 @@ export class AuthController {
 	private sentToken(res: Response, refreshToken: string): void {
 		res.cookie('jid', refreshToken, {
 			httpOnly: true,
-			path: '/api/v1/auth/refresh_token'
+			path: '/v1/auth/refresh_token'
 		});
 	}
 }

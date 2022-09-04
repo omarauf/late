@@ -65,6 +65,7 @@ const sidebarItems: ISidebar[] = [
         children: [
           { title: 'List', path: '/dashboard/product/list' },
           { title: 'Create', path: '/dashboard/product/create' },
+          { title: 'Import', path: '/dashboard/product/import' },
         ],
       },
     ],

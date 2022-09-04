@@ -3,17 +3,12 @@ import { ColumnDef, createColumnHelper } from '@tanstack/react-table';
 import { getProducts } from '../../api';
 import Table from '../../components/table';
 import { notify } from '../../components/ui/toast';
+import { IProductReq } from '../../types/products';
 
-interface DataType {
-  _id: number;
-  name: string;
-  price: number;
-}
-
-const columnHelper = createColumnHelper<DataType>();
+const columnHelper = createColumnHelper<IProductReq>();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const columns: ColumnDef<DataType, any>[] = [
+const columns: ColumnDef<IProductReq, any>[] = [
   columnHelper.accessor('name', {
     header: 'Product Name',
     cell: (info) => info.getValue(),
@@ -24,10 +19,20 @@ const columns: ColumnDef<DataType, any>[] = [
     header: () => <span>Product Price</span>,
     footer: (info) => info.column.id,
   }),
+  columnHelper.accessor('quantity', {
+    cell: (info) => <i>{info.getValue()}</i>,
+    header: () => <span>Quantity</span>,
+    footer: (info) => info.column.id,
+  }),
+  columnHelper.accessor('description', {
+    cell: (info) => info.getValue(),
+    header: () => <span>Description</span>,
+    footer: (info) => info.column.id,
+  }),
 ];
 
 const ListProducts: React.FC = () => {
-  const [products, setProducts] = React.useState<DataType[]>([]);
+  const [products, setProducts] = React.useState<IProductReq[]>([]);
 
   const fetchProducts = async () => {
     try {
@@ -48,7 +53,7 @@ const ListProducts: React.FC = () => {
         <h1 className="text-xl font-semibold">React Table + Tailwind CSS = ❤</h1>
       </div>
       <div className="mt-4">
-        <Table<DataType> columns={columns} data={products} />
+        <Table<IProductReq> columns={columns} data={products} />
       </div>
     </div>
   );

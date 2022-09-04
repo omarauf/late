@@ -1,5 +1,6 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
+import { NotFoundError } from '../../errors/not-found';
 
 import { UtilityService } from '../../services/utility';
 
@@ -70,7 +71,7 @@ export class UserController {
 
 			const hashedPassword: string = await UtilityService.hashPassword(password);
 
-			const newUser: IUserDoc = await this.repo.create({
+			const updatedUser: IUserDoc = await this.repo.create({
 				firstName,
 				lastName,
 				phone,
@@ -80,7 +81,7 @@ export class UserController {
 				password: hashedPassword
 			});
 
-			return res.json(newUser);
+			return res.json(updatedUser);
 		} catch (err) {
 			return next(err);
 		}
@@ -140,14 +141,14 @@ export class UserController {
 			const user: IUserDoc | null = await this.repo.findById(userId);
 
 			if (!user) {
-				return res.status(404).json({ error: 'User not found' });
+				throw new NotFoundError('User not found');
 			}
 
 			await this.repo.delete(user.id);
 
 			return res.status(204).send();
 		} catch (err) {
-			return next(err);
+			next(new NotFoundError(err));
 		}
 	}
 

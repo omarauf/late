@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { getToken, setToken } from '../utils/token';
+import useAuth from '../hooks/useAuth';
+import { getToken, removeToken, setToken } from '../utils/token';
 import { refreshToken } from './auth';
 
 export const cancelTokenSource = axios.CancelToken.source();
@@ -38,7 +39,7 @@ instance.interceptors.request.use(
 );
 
 // Add a response interceptor
-const responseInterceptors = instance.interceptors.response.use(
+instance.interceptors.response.use(
   (response) =>
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
@@ -52,16 +53,27 @@ const responseInterceptors = instance.interceptors.response.use(
       // Access Token was expired or user not authorized
       if (error.response.status === 401) {
         /*
+         * Prevent infinite loops
          * When response code is 401, try to refresh the token.
-         * Eject the interceptor so it doesn't loop in case
-         * token refresh causes the 401 response
+         * if the prevoius request is auth token
+         * that mean use
          */
-        instance.interceptors.response.eject(responseInterceptors);
-        const { data } = await refreshToken();
-        const { accessToken } = data;
-        setToken(accessToken);
-        prevRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return instance(prevRequest);
+        if (prevRequest.url === 'auth/refresh_token') {
+          window.location.replace('/login');
+          removeToken();
+          return Promise.reject(new Error('Not Authorized'));
+        }
+        try {
+          const { data } = await refreshToken();
+          const { accessToken } = data;
+          setToken(accessToken);
+          prevRequest.headers.Authorization = `Bearer ${accessToken}`;
+          return await instance(prevRequest);
+        } catch (newError) {
+          window.location.replace('/login');
+          removeToken();
+          return Promise.reject(new Error('Not Authorized'));
+        }
       }
     }
 
