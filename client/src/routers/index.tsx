@@ -12,6 +12,7 @@ import UserCreate from '../pages/users/create';
 // Product Pages
 import ProductList from '../pages/products/list';
 import ProductCreate from '../pages/products/create';
+import ProductImport from '../pages/products/import';
 
 // Pages
 import Login from '../pages/auth/login';
@@ -43,6 +44,7 @@ const Router: React.FC = () => (
         <Route index element={<Navigate to="/dashboard/product/list" replace />} />
         <Route path="list" element={<ProductList />} />
         <Route path="create" element={<ProductCreate />} />
+        <Route path="import" element={<ProductImport />} />
       </Route>
     </Route>
 

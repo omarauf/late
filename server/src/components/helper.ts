@@ -59,6 +59,17 @@ export abstract class BaseRepository<T, U extends Document, V extends Model<U>> 
 	}
 
 	/**
+	 * Create and save a new entity in db
+	 * @param entity
+	 * @returns Mongoose document
+	 */
+	async createMany(entity: T[]): Promise<U[]> {
+		const created = this._model.create(entity);
+		this.deleteFromCache();
+		return created;
+	}
+
+	/**
 	 * Update an entity in db by it's id
 	 * @param id
 	 * @param entity

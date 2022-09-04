@@ -7,4 +7,8 @@ export class ProductRepository extends BaseRepository<IProduct, IProductDoc, IPr
 	constructor() {
 		super(Product, 'product');
 	}
+
+	search(value: string) {
+		return this._model.find({ name: { $regex: value, $options: 'i' } }).exec();
+	}
 }

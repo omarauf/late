@@ -27,7 +27,7 @@ export class UserRoutes implements IComponentRoutes<UserController> {
 			'/:userId',
 			this.authService.isAuthorized(),
 			// this.authService.adminOnly(),
-			param('userId').isString(),
+			param('userId').isString().isMongoId(),
 			this.authService.validateRequest,
 			this.controller.readUser
 		);
@@ -36,12 +36,12 @@ export class UserRoutes implements IComponentRoutes<UserController> {
 			'/',
 			this.authService.isAuthorized(),
 			this.authService.adminOnly(),
-			body(UserField.email).isEmail(),
-			body(UserField.firstName).isString(),
-			body(UserField.lastName).isString(),
-			body(UserField.company).isString(),
-			body(UserField.phone).isString(),
-			body(UserField.password).isString(),
+			body(UserField.email).isEmail().normalizeEmail({ gmail_remove_dots: false }),
+			body(UserField.firstName).isString().trim(),
+			body(UserField.lastName).isString().trim(),
+			body(UserField.company).isString().trim(),
+			body(UserField.phone).isString().trim(),
+			body(UserField.password).isString().trim(),
 			body(UserField.isAdmin).isBoolean(),
 			this.authService.validateRequest,
 			this.controller.createUser
@@ -51,11 +51,11 @@ export class UserRoutes implements IComponentRoutes<UserController> {
 			'/:userId',
 			this.authService.isAuthorized(),
 			this.authService.adminOnly(),
-			param('userId').isString(),
-			body(UserField.firstName).isString(),
-			body(UserField.lastName).isString(),
-			body(UserField.company).isString(),
-			body(UserField.phone).isString(),
+			param('userId').isString().isMongoId(),
+			body(UserField.firstName).isString().trim(),
+			body(UserField.lastName).isString().trim(),
+			body(UserField.company).isString().trim(),
+			body(UserField.phone).isString().trim(),
 			body(UserField.isAdmin).isBoolean(),
 			this.authService.validateRequest,
 			this.controller.updateUser
@@ -73,7 +73,7 @@ export class UserRoutes implements IComponentRoutes<UserController> {
 			'/:userId',
 			this.authService.isAuthorized(),
 			this.authService.adminOnly(),
-			param('userId').isString(),
+			param('userId').isString().isMongoId(),
 			this.authService.validateRequest,
 			this.controller.deleteUser
 		);

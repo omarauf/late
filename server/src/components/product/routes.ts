@@ -26,27 +26,47 @@ export class ProductRoutes implements IComponentRoutes<ProductController> {
 		this.router.get(
 			'/:productID',
 			this.authService.isAuthorized(),
-			param('productID').isString(),
+			param('productID').isString().isMongoId(),
 			this.authService.validateRequest,
 			this.controller.readProduct
+		);
+
+		this.router.get(
+			'/search/:value',
+			this.authService.isAuthorized(),
+			param('value').isString(),
+			this.authService.validateRequest,
+			this.controller.serachProduct
 		);
 
 		this.router.post(
 			'/',
 			this.authService.isAuthorized(),
 			// this.authService.hasPermission(this.name, 'read'),
-			body(ProductField.name).isString(),
+			body(ProductField.name).isString().trim(),
+			body(ProductField.quantity).isNumeric(),
 			body(ProductField.price).isNumeric(),
+			body(ProductField.description).isString().trim(),
 			this.authService.validateRequest,
 			this.controller.createProduct
+		);
+
+		this.router.post(
+			'/many',
+			this.authService.isAuthorized(),
+			body().isArray(),
+			this.authService.validateRequest,
+			this.controller.createProducts
 		);
 
 		this.router.put(
 			'/:productID',
 			this.authService.isAuthorized(),
-			param('productID').isString(),
-			body(ProductField.name).isString(),
+			param('productID').isString().isMongoId(),
+			body(ProductField.name).isString().trim(),
+			body(ProductField.quantity).isNumeric(),
 			body(ProductField.price).isNumeric(),
+			body(ProductField.description).isString().trim(),
 			this.authService.validateRequest,
 			this.controller.updateProduct
 		);
@@ -54,7 +74,7 @@ export class ProductRoutes implements IComponentRoutes<ProductController> {
 		this.router.delete(
 			'/:productID',
 			this.authService.isAuthorized(),
-			param('productID').isString(),
+			param('productID').isString().isMongoId(),
 			this.authService.validateRequest,
 			this.controller.deleteProduct
 		);

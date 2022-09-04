@@ -80,7 +80,7 @@ export class CookieStrategy extends BaseStrategy {
 
 			return next(null, user);
 		} catch (err) {
-			return next(err);
+			next(new UnauthorizedError(err));
 		}
 	}
 }

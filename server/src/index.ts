@@ -1,5 +1,7 @@
 import 'reflect-metadata';
 
+// import 'express-async-errors';
+
 // Set env variables from .env file
 import { config } from 'dotenv';
 

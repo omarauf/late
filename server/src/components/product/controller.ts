@@ -1,7 +1,9 @@
 import { bind } from 'decko';
 import { NextFunction, Request, Response } from 'express';
+import { NotFoundError } from '../../errors/not-found';
 
 import { IUserDoc } from '../user/interface';
+import { IProduct } from './interface';
 
 import { ProductRepository } from './repository';
 
@@ -42,7 +44,32 @@ export class ProductController {
 
 			const product = await this.repo.findById(productID);
 
+			if (!product) {
+				throw new NotFoundError('No Product Found');
+			}
+
 			return res.json(product);
+		} catch (err) {
+			return next(err);
+		}
+	}
+
+	/**
+	 * Serach product
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns HTTP response
+	 */
+	@bind
+	async serachProduct(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const { value } = req.params;
+
+			const foundProducts = await this.repo.search(value);
+
+			return res.json(foundProducts);
 		} catch (err) {
 			return next(err);
 		}
@@ -71,6 +98,33 @@ export class ProductController {
 			});
 
 			return res.json(product);
+		} catch (err) {
+			return next(err);
+		}
+	}
+
+	/**
+	 * Create products
+	 *
+	 * @param req Express request
+	 * @param res Express response
+	 * @param next Express next
+	 * @returns HTTP response
+	 */
+	@bind
+	async createProducts(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+		try {
+			const products = req.body;
+
+			const user = req.user as IUserDoc;
+
+			const createProducts = products.map((p: IProduct) => {
+				return { ...p, createdBy: user.id };
+			});
+
+			const createdProducts = await this.repo.create(createProducts);
+
+			return res.json(createdProducts);
 		} catch (err) {
 			return next(err);
 		}
