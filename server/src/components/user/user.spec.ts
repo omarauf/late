@@ -54,7 +54,7 @@ describe('Testing user component', () => {
 				.set('Authorization', `Bearer  ${accessToken}`)
 				.set('Accept', 'application/json')
 				.expect('Content-Type', /json/)
-				.expect(200)
+				.expect(404)
 				.end((err, res) => {
 					try {
 						if (err) throw err;
